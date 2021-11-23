@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuarioModel } from 'src/app/models/usuario';
 import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 
 @Component({
@@ -8,18 +10,35 @@ import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 })
 export class TablaUsuariosComponent implements OnInit {
 
-  constructor(private usuariosService: UsuariosService) { }
+  public usuarios: UsuarioModel[] = [];
 
-  ngOnInit(): void {
-    this.obtenerCanciones();
+  constructor(private usuariosService: UsuariosService, private router: Router) { }
+
+
+  async ngOnInit(): Promise<void> {
+    this.usuarios = await this.obtenerCanciones();
   }
 
-  private obtenerCanciones(){
+  private async obtenerCanciones(): Promise<any>{
     try {
-        const response = this.usuariosService.obtenerUsuarios();
-        console.log(response);
+        const response = await this.usuariosService.obtenerUsuarios();
+        return response.data;
     } catch (error) {
       console.log(error);
+      this.router.navigate(['/error']);
     }
   }
+
+public eliminarUsuario( id: number)  {
+  this.usuariosService.eliminarUsuario(id).then(async (response) => {
+    if(response.message ==='Eliminación de Usuario'){
+      this.usuarios = await this.obtenerCanciones();
+      alert('Cancion eliminada correctamente');
+    }
+  }).catch(error => {
+    console.log(error);
+    this.router.navigate(['/error']);
+  })
+}
+
 }
