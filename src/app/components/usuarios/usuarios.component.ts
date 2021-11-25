@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuariosComponent implements OnInit {
 
+  public subtituloTabla = 'subtitulo de la tabla';
   constructor() { }
 
   ngOnInit(): void {

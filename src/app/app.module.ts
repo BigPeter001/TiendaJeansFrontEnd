@@ -10,6 +10,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorsComponent } from './components/errors/errors.component';
+import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,15 @@ import { ErrorsComponent } from './components/errors/errors.component';
     TablaUsuariosComponent,
     NotFoundComponent,
     UsuariosComponent,
-    ErrorsComponent
+    ErrorsComponent,
+  
+    FormularioUsuarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

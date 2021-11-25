@@ -14,8 +14,16 @@ export class UsuariosService {
     return this.http.get(url).toPromise();
   }
   public obtenerUsuario(id: number){}
-  public agregarUsuario(usuario: any){}
-  public actualizarUsuario(usuario: any){}
+  public agregarUsuario(usuario: any): Promise<any>{
+
+    return this.http.post(environment.apiUrl +'/agregarUsuario', usuario).toPromise();
+
+  }
+  public actualizarUsuario(usuario: any): Promise<any>{
+
+    return this.http.put(environment.apiUrl +'/actualizarUsuario/' + usuario.id, usuario).toPromise();
+
+  }
 
   public eliminarUsuario(id: number): Promise<any>{
 

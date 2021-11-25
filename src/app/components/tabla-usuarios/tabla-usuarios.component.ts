@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario';
 import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
@@ -10,12 +10,16 @@ import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 })
 export class TablaUsuariosComponent implements OnInit {
 
+  @Input() subtitulo: string = '';
+  //@Output() mostrarAlerta = new EventEmitter();
+
   public usuarios: UsuarioModel[] = [];
 
   constructor(private usuariosService: UsuariosService, private router: Router) { }
 
 
   async ngOnInit(): Promise<void> {
+    console.log(this.subtitulo);
     this.usuarios = await this.obtenerCanciones();
   }
 
@@ -39,6 +43,13 @@ public eliminarUsuario( id: number)  {
     console.log(error);
     this.router.navigate(['/error']);
   })
+}
+
+public actualizarUsuario( usuario: any)  {
+  localStorage.setItem('usuarioActualizar', JSON.stringify(usuario));
+  this.router.navigate(['/formularioUsuario']);
+  console.log('Actualizar usuario');
+
 }
 
 }
