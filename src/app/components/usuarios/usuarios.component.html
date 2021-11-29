@@ -1,6 +1,9 @@
 <div class="contenedor">
+    <div class="alert alert-success" role ="alert"  *ngIf="showAlert">
+         Usuario Eliminado correctamente!!!
+     </div>
     <h1>Lista de usuarios</h1>
-    <app-tabla-usuarios [subtitulo]="subtituloTabla"></app-tabla-usuarios>
+    <app-tabla-usuarios [subtitulo]="subtituloTabla" (mostrarAlerta)="mostrarAlerta($event)"></app-tabla-usuarios>
     <button   type="button" class="btn btn-primary" routerLink="/formularioUsuario">Agregar</button>
-
+    
 </div>

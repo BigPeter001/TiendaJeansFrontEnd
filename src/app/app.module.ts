@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorsComponent } from './components/errors/errors.component';
 import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UsuariosService } from './services/usuarios/usuarios.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UsuariosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

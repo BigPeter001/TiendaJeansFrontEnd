@@ -22,8 +22,8 @@ export class FormularioUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     const actualizar = localStorage.getItem('usuarioActualizar');
-
     this.usuarioActualizar = actualizar ? JSON.parse(actualizar) : null;
+    console.log(this.usuarioActualizar);
     this.buildForm();
 
   }
@@ -31,7 +31,7 @@ export class FormularioUsuarioComponent implements OnInit {
   public buildForm() {
     this.formGroup = this.formBuilder.group({
       usuario_nombre:[this.usuarioActualizar?.usuario_nombre, Validators.required],
-      usuario_email:[this.usuarioActualizar?.usuario_email, Validators.required]
+      usuario_email:[this.usuarioActualizar?.usuario_email, [Validators.required,Validators.email]]
     });
   }
 
@@ -46,6 +46,26 @@ export class FormularioUsuarioComponent implements OnInit {
     })
   }
 
+  public actualizarUsuario(){
+    console.log("Actualizar usuario");
+    console.log(this.formGroup.value);
+    const usuario: UsuarioModel = {
+      usuario_id: this.usuarioActualizar?.usuario_id, 
+      ...this.formGroup.value
+    }
+    this.usuariosService.actualizarUsuario(usuario).then(response =>{
+
+      if(response.message === 'Actualizar Usuario'){
+        alert("Usuario Actualizado Correctamente");
+        this.router.navigate(['/usuarios']);
+      }
+    }).catch(error =>{
+      this.router.navigate(['/error']);
+    })
+
+
+
+  }
   
 
 }

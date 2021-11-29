@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {environment} from  'src/environments/environment';
+import { UsuarioModel } from 'src/app/models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,9 @@ export class UsuariosService {
     return this.http.post(environment.apiUrl +'/agregarUsuario', usuario).toPromise();
 
   }
-  public actualizarUsuario(usuario: any): Promise<any>{
+  public actualizarUsuario(usuario: UsuarioModel): Promise<any>{
 
-    return this.http.put(environment.apiUrl +'/actualizarUsuario/' + usuario.id, usuario).toPromise();
+    return this.http.put(environment.apiUrl +'/actualizarUsuario/' + usuario.usuario_id, usuario).toPromise();
 
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario';
 import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
@@ -11,7 +11,7 @@ import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 export class TablaUsuariosComponent implements OnInit {
 
   @Input() subtitulo: string = '';
-  //@Output() mostrarAlerta = new EventEmitter();
+  @Output() mostrarAlerta = new EventEmitter();
 
   public usuarios: UsuarioModel[] = [];
 
@@ -20,6 +20,7 @@ export class TablaUsuariosComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     console.log(this.subtitulo);
+    localStorage.clear();
     this.usuarios = await this.obtenerCanciones();
   }
 
@@ -37,7 +38,7 @@ public eliminarUsuario( id: number)  {
   this.usuariosService.eliminarUsuario(id).then(async (response) => {
     if(response.message ==='Eliminación de Usuario'){
       this.usuarios = await this.obtenerCanciones();
-      alert('Cancion eliminada correctamente');
+      this.mostrarAlerta.emit({mostrarAlerta: true});
     }
   }).catch(error => {
     console.log(error);
@@ -45,7 +46,7 @@ public eliminarUsuario( id: number)  {
   })
 }
 
-public actualizarUsuario( usuario: any)  {
+public actualizarUsuario( usuario: UsuarioModel)  {
   localStorage.setItem('usuarioActualizar', JSON.stringify(usuario));
   this.router.navigate(['/formularioUsuario']);
   console.log('Actualizar usuario');

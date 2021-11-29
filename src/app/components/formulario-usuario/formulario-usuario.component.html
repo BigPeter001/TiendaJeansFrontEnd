@@ -1,17 +1,24 @@
-<form [formGroup] = "formGroup">
+<div class="contenedor">
+  <h1>{{usuarioActualizar ? 'Actualizar Usuario' : 'Agregar Usuario'}} </h1>
+
+  <form [formGroup] = "formGroup">
+ 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Nombre Usuario</label>
-    <input type="text" class="form-text"
-     id="exampleInputEmail1" aria-describedby="emailHelp"
-     formControlName="usuario_nombre">
-  
+    <label for="exampleInputEmail1" class="form-label">Nombre Usuario*</label>
+    <input type="text" class="form-control"  id="exampleInputEmail1" aria-describedby="emailHelp"
+     formControlName="usuario_nombre">  
   </div>
   <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Email</label>
-    <input type="text" class="form-text" id="exampleInputPassword1"
+    <label for="exampleInputPassword1" class="form-label">Email Usuario*</label>
+    <input type="text" class="form-control" id="exampleInputPassword1"
     formControlName="usuario_email">
   </div>
-  
-  <button type="submit" class="btn btn-primary" (click)="agregarUsuario()">Agregar Usuario</button>
+  <button type="submit" class="btn btn-primary" (click)="agregarUsuario()" *ngIf="!usuarioActualizar">Agregar</button>
+  <button type="submit" class="btn btn-primary" (click)="actualizarUsuario()" *ngIf="usuarioActualizar">Actualizar</button>
 
 </form>
+
+</div>
+
+
+
